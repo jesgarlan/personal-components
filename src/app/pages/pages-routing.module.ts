@@ -7,11 +7,16 @@ const routes: Routes = [{
   path: '',
   component: PagesComponent,
   children: [
-    /*{
+    {
       path: '',
-      redirectTo: 'dashboard',
+      redirectTo: 'home',
       pathMatch: 'full',
-    }*/
+    },
+    {
+      path: 'charts',
+      loadChildren: () => import('../modules/charts/charts.module')
+        .then(m => m.ChartsModule)
+    }
   ],
 }];
 
