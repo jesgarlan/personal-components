@@ -6,6 +6,7 @@ import { EchartPieGenericComponent } from './components/echart-pie-generic/echar
 import { ListGenericComponent } from './components/list-generic/list-generic.component';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { Constants } from './constants';
+import { ChartsService } from './services/charts.service';
 
 
 
@@ -23,6 +24,10 @@ import { Constants } from './constants';
     EchartPieGenericComponent,
     ListGenericComponent
   ],
-  providers: [NbThemeService, Constants]
+  providers: [
+    NbThemeService,
+    Constants,
+    ChartsService
+  ]
 })
 export class SharedModule { }

@@ -1,5 +1,6 @@
 import { AfterViewInit, Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { NbThemeService } from '@nebular/theme';
+import { ChartsService } from '../../services/charts.service';
 
 @Component({
   selector: 'app-echart-pie-generic',
@@ -11,6 +12,7 @@ export class EchartPieGenericComponent implements AfterViewInit, OnDestroy {
 
   options: any = {};
   themeSubscription: any;
+  echartsInstance: any;
 
   //Cada item de data será del formato { name: string, value:number  }
   @Input() data: Array<any> = new Array<any>();
@@ -19,16 +21,15 @@ export class EchartPieGenericComponent implements AfterViewInit, OnDestroy {
 
 
 
-  constructor(private theme: NbThemeService) {
+  constructor(private theme: NbThemeService,
+    private chartsService: ChartsService) {
   }
 
   ngAfterViewInit() {
     this.themeSubscription = this.theme.getJsTheme().subscribe(config => {
-
       const colors = config.variables;
-      console.log(colors);
+      console.log(colors)
       const echarts: any = config.variables.echarts;
-      console.log(echarts);
 
       this.options = {
         backgroundColor: echarts.bg,
@@ -77,6 +78,17 @@ export class EchartPieGenericComponent implements AfterViewInit, OnDestroy {
         ],
       };
     });
+  }
+
+  onChartInit(ec) {
+    console.log(ec)
+    this.echartsInstance = ec;
+  }
+
+  resizeChart() {
+    if (this.echartsInstance) {
+      this.echartsInstance.resize();
+    }
   }
 
   ngOnDestroy(): void {

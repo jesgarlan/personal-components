@@ -4,6 +4,7 @@ import { NbMediaBreakpointsService, NbMenuService, NbSidebarService, NbThemeServ
 import { map, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { LayoutService } from 'src/app/core/services/layout.service';
+import { ChartsService } from 'src/app/shared/services/charts.service';
 
 @Component({
   selector: 'ngx-header',
@@ -37,14 +38,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   currentTheme = 'default';
 
-  userMenu = [ { title: 'Profile' }, { title: 'Log out' } ];
+  userMenu = [{ title: 'Profile' }, { title: 'Log out' }];
 
   constructor(private sidebarService: NbSidebarService,
-              private menuService: NbMenuService,
-              private themeService: NbThemeService,
-              //private userService: UserData,
-              private layoutService: LayoutService,
-              private breakpointService: NbMediaBreakpointsService) {
+    private menuService: NbMenuService,
+    private themeService: NbThemeService,
+    //private userService: UserData,
+    private layoutService: LayoutService,
+    private breakpointService: NbMediaBreakpointsService,
+    private chartsService: ChartsService) {
   }
 
   ngOnInit() {
@@ -68,7 +70,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
         takeUntil(this.destroy$),
       )
       .subscribe(themeName => this.currentTheme = themeName);
+
+    this.themeService.getJsTheme().subscribe(config => {
+      this.chartsService.colors = config.variables;
+      this.chartsService.echarts = config.variables.echarts;
+      console.log("Actual:", config.name);
+    })
   }
+
 
   ngOnDestroy() {
     this.destroy$.next();

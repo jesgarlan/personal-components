@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { LocalDataSource } from 'ng2-smart-table';
 import { Constants } from '../../constants';
 
 @Component({
@@ -9,23 +10,29 @@ import { Constants } from '../../constants';
 export class ListGenericComponent implements OnInit {
 
   public settings: any;
+  public source: LocalDataSource = new LocalDataSource();
 
-  @Input() mode: string;
-  @Input() hideSubHeader: boolean;
-  @Input() actions: any;
-  @Input() btnAdd: any;
-  @Input() btnEdit: any;
-  @Input() btnDelete: any;
-  @Input() columns: any;
-  @Input() pager: any;
+  @Input() public mode: string;
+  @Input() public hideSubHeader: boolean;
+  @Input() public actions: any;
+  @Input() public btnAdd: any;
+  @Input() public btnEdit: any;
+  @Input() public btnDelete: any;
+  @Input() public columns: any;
+  @Input() public pager: any;
 
-  @Input() data: Array<any> = new Array<any>();
+  @Input() public data: Array<any> = new Array<any>();
+
+  @Output() public outputCreate = new EventEmitter<Array<any>>();
+  @Output() public outputEdit = new EventEmitter<Array<any>>();
+  @Output() public outputDelete = new EventEmitter<Array<any>>();
 
 
   constructor(public constants: Constants) {
   }
 
   ngOnInit() {
+    this.source.load(this.data);
     this.settings = {
       mode: this.mode,
       hideSubHeader: this.hideSubHeader,
@@ -39,4 +46,23 @@ export class ListGenericComponent implements OnInit {
     };
   }
 
+  createConfirm(event) {
+    this.data.push(event.newData);
+    this.source.load(this.data);
+    this.outputCreate.emit(this.data);
+  }
+
+  editConfirm(event) {
+    let index = this.data.indexOf(event.data);
+    this.data[index] = event.newData;
+    this.source.load(this.data);
+    this.outputEdit.emit(this.data);
+  }
+
+  deleteConfirm(event) {
+    let index = this.data.indexOf(event.data);
+    this.data.splice(index, 1);
+    this.source.load(this.data);
+    this.outputDelete.emit(this.data);
+  }
 }
