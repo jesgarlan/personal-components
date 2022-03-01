@@ -8,15 +8,14 @@ import { NbThemeModule, NbLayoutModule, NbMenuModule, NbSidebarModule } from '@n
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { SharedModule } from './shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MainComponent } from './core/pages/main/main.component';
 import { ThemeModule } from './theme/theme.module';
 import { CoreModule } from './core/core.module';
 import { HttpClientModule } from '@angular/common/http';
+import { MainMenu } from './core/MainMenu';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    MainComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
@@ -31,7 +30,7 @@ import { HttpClientModule } from '@angular/common/http';
     ReactiveFormsModule,
     FormsModule
   ],
-  providers: [],
+  providers: [MainMenu],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

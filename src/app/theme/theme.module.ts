@@ -12,10 +12,6 @@ import {
   NbSelectModule,
   NbIconModule,
   NbThemeModule,
-  NbMediaBreakpointsService,
-  NbMenuService,
-  NbSidebarService,
-  NbThemeService,
 } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { NbSecurityModule } from '@nebular/security';
@@ -41,7 +37,6 @@ import { DEFAULT_THEME } from './styles/theme.default';
 import { COSMIC_THEME } from './styles/theme.cosmic';
 import { CORPORATE_THEME } from './styles/theme.corporate';
 import { DARK_THEME } from './styles/theme.dark';
-import { AnalyticsService, LayoutService, PlayerService, SeoService, StateService } from '../core/services';
 
 const NB_MODULES = [
   NbLayoutModule,
