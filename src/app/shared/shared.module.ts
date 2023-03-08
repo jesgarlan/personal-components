@@ -1,15 +1,22 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NgxEchartsModule } from 'ngx-echarts';
-import { NbThemeService } from '@nebular/theme';
-import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { Constants } from './constants';
-import { ChartsService } from './services/charts.service';
+import { MenuBarComponent } from './components/menu-bar/menu-bar.component';
+import { MenubarModule } from 'primeng/menubar';
+import { TabViewModule } from 'primeng/tabview';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
-  declarations: [],
-  imports: [CommonModule],
-  exports: [],
-  providers: [NbThemeService, Constants, ChartsService],
+  declarations: [MenuBarComponent],
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    CommonModule,
+    MenubarModule,
+    TabViewModule
+  ],
+  exports: [MenuBarComponent],
+  providers: [Constants],
 })
 export class SharedModule {}
